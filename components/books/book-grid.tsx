@@ -1,7 +1,6 @@
 'use client'
 
 import { BookCard } from './book-card'
-import { Skeleton } from '@/components/ui/skeleton'
 import type { Book } from '@/types'
 
 interface BookGridProps {
@@ -12,12 +11,12 @@ interface BookGridProps {
 export function BookGrid({ books, isLoading }: BookGridProps) {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="flex items-start justify-between w-full gap-[28.71px]">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="space-y-3">
-            <Skeleton className="aspect-[3/4] w-full" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-3 w-1/2" />
+          <div key={i} className="flex flex-col gap-4 animate-pulse">
+            <div className="w-[150.465px] h-[226.742px] bg-[#F1F5F9] rounded-lg" />
+            <div className="h-4 w-[150.465px] bg-[#F1F5F9] rounded" />
+            <div className="h-3 w-[100px] bg-[#F1F5F9] rounded" />
           </div>
         ))}
       </div>
@@ -27,13 +26,13 @@ export function BookGrid({ books, isLoading }: BookGridProps) {
   if (books.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground">No books yet. Create your first book to get started!</p>
+        <p className="text-[#62748E]">No books yet. Create your first book to get started!</p>
       </div>
     )
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="flex items-start justify-between w-full gap-[28.71px]">
       {books.map((book) => (
         <BookCard key={book.id} book={book} />
       ))}

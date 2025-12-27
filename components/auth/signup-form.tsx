@@ -2,45 +2,24 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
-import { signupSchema, type SignupFormData } from '@/lib/validators'
 import { ROUTES } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Loader2 } from 'lucide-react'
 
 export function SignupForm() {
+  const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { signup } = useAuth()
   const router = useRouter()
 
-  const form = useForm<SignupFormData>({
-    resolver: zodResolver(signupSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
-  })
-
-  const onSubmit = async (data: SignupFormData) => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true)
     setError(null)
 
     try {
-      await signup(data)
-      // Navigate to OTP verification
+      // For now, just pass email - backend will handle full signup later
+      await signup({ email, name: '', password: 'temp-password-123' })
       router.push(ROUTES.OTP_VERIFY)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Signup failed')
@@ -50,76 +29,52 @@ export function SignupForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {error && (
-          <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-            {error}
-          </div>
-        )}
+    <form onSubmit={onSubmit} className="flex flex-col items-start w-full">
+      {error && (
+        <div className="w-full p-3 mb-4 text-sm text-[#DC2626] bg-[#FEE2E2] rounded-lg">
+          {error}
+        </div>
+      )}
 
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name (optional)</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Your name"
-                  {...field}
-                  disabled={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      {/* Email Input */}
+      <div className="flex flex-col items-start w-full gap-2">
+        <label
+          htmlFor="email"
+          className="text-sm font-medium leading-5 text-[#0F172B]"
+          style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+        >
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="emanualberzeber@gmail.com."
+          disabled={isLoading}
+          required
+          className="w-full px-3 py-2 bg-white border border-[#CAD5E2] rounded-md text-base font-normal text-[#62748E] placeholder:text-[#62748E] focus:outline-none focus:ring-2 focus:ring-[#FF6321] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
+          style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
         />
+      </div>
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="your@email.com"
-                  {...field}
-                  disabled={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="••••••••"
-                  {...field}
-                  disabled={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Sign Up
-        </Button>
-      </form>
-    </Form>
+      {/* Sign Up Button */}
+      <button
+        type="submit"
+        disabled={isLoading || !email}
+        className="w-full mt-8 px-5 py-3 bg-[#FF6321] rounded-md shadow-[0px_0px_0px_1px_#CF4E17,0px_1px_3px_0px_rgba(0,0,0,0.1)] hover:bg-[#E55818] transition-colors disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+      >
+        <span
+          className="text-sm font-semibold leading-5 text-white"
+          style={{
+            fontFamily: 'var(--font-dm-sans), sans-serif',
+            textShadow: '0px 1px 3px #DF571D'
+          }}
+        >
+          {isLoading ? 'Signing up...' : 'Sign Up'}
+        </span>
+        <div className="absolute inset-0 pointer-events-none shadow-[inset_0px_1px_0.75px_0px_rgba(255,255,255,0.12),inset_0px_-1px_0px_0px_#D95017]" />
+      </button>
+    </form>
   )
 }

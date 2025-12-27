@@ -1,20 +1,20 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 const slides = [
   {
-    title: 'Write your book with AI guidance',
-    description: 'From idea to final draft with intelligent assistance',
+    title: 'Write your book with AI guidance from idea to final draft',
+    image: '/images/auth-carousel/image1.svg',
   },
   {
-    title: 'Organize your story',
-    description: 'Keep track of characters, plots, and chapters effortlessly',
+    title: 'Organize your story and characters effortlessly',
+    image: '/images/auth-carousel/image2.svg',
   },
   {
-    title: 'AI-powered editing',
-    description: 'Get suggestions to improve your writing style and flow',
+    title: 'AI-powered editing and suggestions for better writing',
+    image: '/images/auth-carousel/image3.svg',
   },
 ]
 
@@ -30,31 +30,43 @@ export function AuthCarousel() {
   }, [])
 
   return (
-    <div className="w-full max-w-lg space-y-8">
-      <div className="text-center space-y-4 min-h-[200px] flex flex-col justify-center">
-        <h2 className="text-4xl font-bold text-foreground transition-all duration-500">
+    <div className="relative w-full h-full flex flex-col items-center">
+      {/* Text at top */}
+      <div className="absolute left-1/2 top-[97px] -translate-x-1/2 flex flex-col items-center gap-6 z-10">
+        <p
+          className="font-medium text-[32px] leading-10 text-[#0F172B] text-center w-[566px] transition-all duration-500"
+          style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+        >
           {slides[currentSlide].title}
-        </h2>
-        <p className="text-xl text-muted-foreground transition-all duration-500">
-          {slides[currentSlide].description}
         </p>
+
+        {/* Indicators */}
+        <div className="flex gap-1 items-center">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={
+                index === currentSlide
+                  ? 'bg-[#0F172B] h-[8px] w-[24px] rounded-full transition-all duration-300'
+                  : 'bg-[#E2E8F0] h-[8px] w-[8px] rounded-full transition-all duration-300 hover:bg-[#CAD5E2]'
+              }
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Indicators */}
-      <div className="flex justify-center gap-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={cn(
-              'h-2 rounded-full transition-all duration-300',
-              index === currentSlide
-                ? 'w-8 bg-primary'
-                : 'w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50'
-            )}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
+      {/* Illustration */}
+      <div className="absolute inset-[29.34%_11.99%_15.99%_11.86%]">
+        <Image
+          src={slides[currentSlide].image}
+          alt={slides[currentSlide].title}
+          fill
+          className="object-contain transition-all duration-500"
+          priority
+          unoptimized
+        />
       </div>
     </div>
   )

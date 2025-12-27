@@ -2,44 +2,24 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuth } from '@/hooks/use-auth'
-import { loginSchema, type LoginFormData } from '@/lib/validators'
 import { ROUTES } from '@/lib/constants'
-import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Loader2 } from 'lucide-react'
 
 export function LoginForm() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const { login } = useAuth()
   const router = useRouter()
 
-  const form = useForm<LoginFormData>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-  })
-
-  const onSubmit = async (data: LoginFormData) => {
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
     setIsLoading(true)
     setError(null)
 
     try {
-      await login(data.email, data.password)
-      // Navigate to OTP verification
+      await login(email, password)
       router.push(ROUTES.OTP_VERIFY)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
@@ -49,57 +29,62 @@ export function LoginForm() {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {error && (
-          <div className="p-3 text-sm text-destructive bg-destructive/10 rounded-md">
-            {error}
-          </div>
-        )}
+    <form onSubmit={onSubmit} className="flex flex-col items-start w-full gap-5">
+      {error && (
+        <div className="w-full p-3 text-sm text-[#DC2626] bg-[#FEE2E2] rounded-lg">
+          {error}
+        </div>
+      )}
 
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  type="email"
-                  placeholder="your@email.com"
-                  {...field}
-                  disabled={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      {/* Email Input */}
+      <div className="flex flex-col items-start w-full gap-[6px]">
+        <label
+          htmlFor="email"
+          className="text-sm font-medium leading-5 text-[#0F172B]"
+        >
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          disabled={isLoading}
+          required
+          className="w-full h-10 px-3 py-2 bg-white border border-[#CAD5E2] rounded-lg text-base font-normal text-[#0F172B] placeholder:text-[#90A1B9] focus:outline-none focus:ring-2 focus:ring-[#FF6321] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
         />
+      </div>
 
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input
-                  type="password"
-                  placeholder="••••••••"
-                  {...field}
-                  disabled={isLoading}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      {/* Password Input */}
+      <div className="flex flex-col items-start w-full gap-[6px]">
+        <label
+          htmlFor="password"
+          className="text-sm font-medium leading-5 text-[#0F172B]"
+        >
+          Password
+        </label>
+        <input
+          id="password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Enter your password"
+          disabled={isLoading}
+          required
+          className="w-full h-10 px-3 py-2 bg-white border border-[#CAD5E2] rounded-lg text-base font-normal text-[#0F172B] placeholder:text-[#90A1B9] focus:outline-none focus:ring-2 focus:ring-[#FF6321] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
         />
+      </div>
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Sign In
-        </Button>
-      </form>
-    </Form>
+      {/* Sign In Button */}
+      <button
+        type="submit"
+        disabled={isLoading || !email || !password}
+        className="w-full h-11 px-4 py-2.5 bg-[#FF6321] rounded-lg text-base font-semibold leading-6 text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05),inset_0px_-2px_0px_0px_rgba(16,24,40,0.05),inset_0px_0px_0px_1px_rgba(16,24,40,0.18)] hover:bg-[#E55818] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        style={{ textShadow: '0px 1px 2px rgba(16, 24, 40, 0.05)' }}
+      >
+        {isLoading ? 'Signing in...' : 'Sign In'}
+      </button>
+    </form>
   )
 }

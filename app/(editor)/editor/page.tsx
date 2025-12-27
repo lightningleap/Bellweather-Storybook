@@ -4,10 +4,9 @@ import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useEditor } from '@/hooks/use-editor'
 import { useBooks } from '@/hooks/use-books'
-import { ChapterNav } from '@/components/editor/chapter-nav'
+import { EditorHeader } from '@/components/editor/editor-header'
 import { EditorToolbar } from '@/components/editor/editor-toolbar'
 import { TextEditor } from '@/components/editor/text-editor'
-import { WordCount } from '@/components/editor/word-count'
 import { Skeleton } from '@/components/ui/skeleton'
 
 function EditorContent() {
@@ -42,13 +41,12 @@ function EditorContent() {
   }, [bookId, chapterId, getBook, setCurrentBook, setCurrentChapter, setContent])
 
   return (
-    <div className="h-full flex flex-col">
-      <ChapterNav />
-      <EditorToolbar />
-      <div className="flex-1 overflow-y-auto">
+    <div className="h-full flex flex-col relative">
+      <EditorHeader />
+      <div className="flex-1 overflow-hidden">
         <TextEditor />
       </div>
-      <WordCount />
+      <EditorToolbar />
     </div>
   )
 }

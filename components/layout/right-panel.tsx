@@ -39,26 +39,33 @@ export function RightPanel() {
   return (
     <aside
       className={cn(
-        'w-96 bg-background border-l border-border flex flex-col transition-all duration-300',
+        'w-[406px] bg-white border-l border-[#E5E7EB] flex flex-col transition-all duration-300 rounded-2xl shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-1px_rgba(0,0,0,0.06)]',
         isRightPanelOpen ? 'translate-x-0' : 'translate-x-full'
       )}
+      style={{ margin: '8px' }}
     >
       {/* Header */}
-      <div className="h-14 border-b border-border flex items-center justify-between px-4">
-        <h2 className="font-semibold">{getPanelTitle()}</h2>
-        <Button
-          variant="ghost"
-          size="icon"
+      <div className="h-[68px] border-b-2 border-[#F3F4F6] flex items-center justify-between px-2 py-4 sticky top-0 bg-white rounded-t-2xl">
+        <div className="flex items-center px-4">
+          <h2
+            className="font-semibold text-base text-[#0F172A]"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
+            {getPanelTitle()}
+          </h2>
+        </div>
+        <button
+          className="w-8 h-8 flex items-center justify-center hover:bg-[#F8FAFC] rounded-lg transition-colors"
           onClick={() => setRightPanelView(null)}
         >
-          <X className="h-4 w-4" />
-        </Button>
+          <X className="w-4 h-4 text-[#020617]" />
+        </button>
       </div>
 
       {/* Content */}
-      <ScrollArea className="flex-1">
-        <div className="p-4">{getPanelContent()}</div>
-      </ScrollArea>
+      <div className="flex-1 overflow-y-auto">
+        <div className="p-4 pt-8">{getPanelContent()}</div>
+      </div>
     </aside>
   )
 }

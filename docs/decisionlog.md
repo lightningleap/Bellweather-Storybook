@@ -4,6 +4,208 @@ This file tracks product-level important decisions for the Bellweather project, 
 
 ---
 
+## [Figma Asset Integration Strategy] - 2025-12-26
+
+**Decision:** Use Figma API asset URLs directly for icons and images
+**Context:** Figma design included custom icons and illustrations that needed to be integrated into the app
+**Options Considered:**
+- Download and self-host all assets in public/images
+- Use Figma API URLs directly
+- Convert SVGs to React components
+- Use icon libraries (Lucide, Heroicons)
+**Decision:** Figma API URLs with local fallbacks
+**Rationale:**
+- Fastest implementation (no asset download/conversion needed)
+- Assets are CDN-hosted by Figma (7-day expiry)
+- Can easily update when designs change
+- Reduces repository size
+- Exact match with Figma design
+- Can migrate to self-hosted later if needed
+**Consequences:**
+- Toolbar icons loaded from Figma CDN
+- Social login icons loaded from Figma CDN
+- Assets expire after 7 days (need to refresh URLs)
+- Added fallback to local images where available
+- Image URLs stored as constants at top of components
+- Need to update URLs when Figma design changes
+- Better performance with Figma's CDN than self-hosting
+
+## [Editor Background Pattern] - 2025-12-26
+
+**Decision:** CSS radial-gradient for dotted grid background
+**Context:** Figma design showed a subtle dotted grid pattern in the editor background
+**Options Considered:**
+- SVG pattern definition with <pattern> element
+- CSS radial-gradient with background-size
+- Canvas-based rendering
+- Background image (PNG/SVG file)
+**Decision:** CSS radial-gradient approach
+**Rationale:**
+- Pure CSS solution (no external files)
+- Lightweight and performant
+- Easy to customize (color, spacing, size)
+- Scales perfectly at any resolution
+- No HTTP requests
+- Works in all modern browsers
+**Consequences:**
+- Background style: radial-gradient(circle, #D1D5DC 0.5px, transparent 0.5px)
+- Background size: 8.77px 8.77px (matches Figma spacing)
+- Applied to main editor container
+- Can be toggled on/off easily
+- No asset management needed
+
+## [TypeScript Error Resolution] - 2025-12-26
+
+**Decision:** Strict TypeScript configuration with proper type safety
+**Context:** Build was failing due to type errors in ref callbacks and header types
+**Options Considered:**
+- Disable strict mode temporarily
+- Use @ts-ignore comments
+- Fix types properly
+**Decision:** Fix types properly with correct TypeScript patterns
+**Rationale:**
+- Type safety prevents runtime errors
+- Better developer experience with autocomplete
+- Catches bugs at compile time
+- Aligns with Next.js best practices
+- Production-ready code
+**Consequences:**
+- Ref callbacks must return void (not values)
+- Use Record<string, string> for header objects
+- Proper type casting where needed
+- All components compile without errors
+- Better IDE support and intellisense
+- Easier refactoring in future
+
+## [Font Loading Strategy] - 2025-12-26
+
+**Decision:** Migrate from CSS @import to Next.js next/font system
+**Context:** CSS @import rules were causing parsing errors in Tailwind CSS v4 because @import must precede all other rules
+**Options Considered:**
+- Keep @import and restructure CSS files
+- Use external CDN links in HTML
+- Next.js next/font system
+**Decision:** Next.js next/font system
+**Rationale:**
+- Automatic font optimization and subsetting
+- Eliminates layout shift (CLS) with font-display: swap
+- Fonts loaded as static assets, not external requests
+- Type-safe with TypeScript
+- CSS variables for flexible usage across components
+- No FOUT (Flash of Unstyled Text)
+- Better performance with preloading
+**Consequences:**
+- All fonts loaded in app/layout.tsx
+- Fonts: DM Sans, Inter, Just Me Again Down Here, Plus Jakarta Sans
+- CSS variables: --font-dm-sans, --font-inter, --font-just-me-again, --font-plus-jakarta
+- Components use inline styles or CSS variables for font-family
+- Zero external font requests at runtime
+
+## [Editor UI Design Approach] - 2025-12-26
+
+**Decision:** Match Figma specifications exactly with fixed-width document frames
+**Context:** Editor needed to match BellwetherBooks Figma design for consistency and professional appearance
+**Options Considered:**
+- Responsive fluid layout
+- Fixed 752px document frames (Figma spec)
+- Hybrid responsive with max-width constraints
+**Decision:** Fixed 752px document frames
+**Rationale:**
+- Matches professional document editors (Google Docs, Notion)
+- Consistent line length for better readability (optimal 60-80 characters)
+- Exact match with Figma design specifications
+- Print-ready layout dimensions
+- Better focus with centered content
+- Professional appearance
+**Consequences:**
+- Document frames: 752px width, white background
+- Centered layout with scrollable container
+- Bottom toolbar: 697.37px width, fixed position
+- Header: Full width with title and upgrade button
+- Typography: DM Sans for headings, Plus Jakarta Sans for body
+- Two document frames for editing and preview/comparison
+- 32px padding inside frames
+- Box shadow for elevation
+
+## [Design System Enhancement] - 2025-12-26
+
+**Decision:** Adopt BellwetherBooks comprehensive design system with full CSS variable architecture
+**Context:** Initial design system was minimal; needed richer visual design to match production-ready BellwetherBooks app
+**Options Considered:**
+- Keep minimal design system
+- Gradually enhance existing system
+- Full adoption of BellwetherBooks design system
+**Decision:** Full BellwetherBooks design system adoption
+**Rationale:**
+- Production-proven design system
+- Comprehensive color palette (orange 50-900)
+- Established shadow and elevation system
+- Consistent typography scale
+- Better visual hierarchy
+- Professional 3D effects and depth
+- Dotted grid background for texture
+- Ready for dark mode
+**Consequences:**
+- Added CSS variables for all orange shades (50-900)
+- Typography scale from xs (12px) to 7xl (72px)
+- Font weight variables (normal, medium, semibold, bold)
+- Border radius variables (button: 6px, card: 8px)
+- Shadow system with elevation-sm
+- Dotted grid background pattern
+- All components updated to use new variables
+- Book spine image asset added to public/images
+
+## [3D Component Design Strategy] - 2025-12-26
+
+**Decision:** Implement 3D effects using multi-layered gradients and complex shadows
+**Context:** BellwetherBooks reference had sophisticated 3D visual design that needed replication
+**Options Considered:**
+- CSS 3D transforms
+- Multi-layered div containers with gradients
+- SVG-based depth effects
+- Flat design with subtle shadows
+**Decision:** Multi-layered containers with gradients and complex shadows
+**Rationale:**
+- Exact match with Figma specifications
+- Better browser compatibility than 3D transforms
+- Precise control over visual appearance
+- Layer-based approach familiar to designers
+- Works well with Tailwind utilities
+- Performant (no 3D matrix calculations)
+**Consequences:**
+- PromptInput: 3 nested gradient layers
+- BookCard: Book spine overlay + multiple shadow layers
+- Toolbar: Gradient background + multi-layer shadows
+- Upgrade button: Inset shadows + outer glow
+- Shadow specifications: rgba with precise opacity values
+- Border layers with white borders for depth
+- Inline styles for complex shadow/gradient definitions
+
+## [Editor Toolbar Position] - 2025-12-26
+
+**Decision:** Fixed bottom center toolbar instead of top toolbar
+**Context:** Figma design showed floating toolbar at bottom; needed to decide positioning strategy
+**Options Considered:**
+- Top sticky toolbar (traditional)
+- Fixed bottom center (Figma spec)
+- Context menu on selection
+**Decision:** Fixed bottom center toolbar
+**Rationale:**
+- Matches Figma design exactly
+- Better ergonomics (closer to typing area)
+- Doesn't obstruct document title
+- Modern design pattern (similar to mobile keyboards)
+- Floating appearance adds visual interest
+- Stays out of the way while writing
+**Consequences:**
+- Toolbar: fixed position at bottom
+- Z-index: 10 for overlay
+- Position: bottom-[29.66px], centered with translate-x-[-50%]
+- Width: 697.37px (slightly narrower than document)
+- All formatting icons included (18 tools)
+- Gradient background matching PromptInput style
+- Document container padding-bottom: 32 to prevent overlap
+
 ## [Component Organization] - 2025-12-25
 
 **Decision:** Organize components by feature rather than by type

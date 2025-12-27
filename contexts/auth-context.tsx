@@ -36,7 +36,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       // Mock OTP request - will be replaced with real API
       await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      // DEV MODE: Generate and store a test OTP
+      const testOTP = '123456'
+      sessionStorage.setItem('dev_test_otp', testOTP)
+
       console.log('OTP sent to:', email)
+      console.log('DEV MODE - Use this OTP:', testOTP)
       // In production, this would call: await api.requestOTP(email)
     } catch (error) {
       if (error instanceof ApiError) {

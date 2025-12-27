@@ -1,9 +1,7 @@
 'use client'
 
 import { BookGrid } from '@/components/books/book-grid'
-import { CreateBookDialog } from '@/components/books/create-book-dialog'
 import { useBooks } from '@/hooks/use-books'
-import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 import { useState } from 'react'
 
@@ -16,25 +14,24 @@ export default function BooksPage() {
   )
 
   return (
-    <div className="space-y-6 max-w-7xl">
-      <div className="flex items-start justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">My Books</h1>
-          <p className="text-muted-foreground mt-2">
-            Manage and write your books
-          </p>
-        </div>
-        <CreateBookDialog />
+    <div className="w-full max-w-6xl mx-auto py-8 px-6 space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-[32px] font-semibold text-[#0F172B]">My Books</h1>
+        <p className="text-base text-[#62748E] mt-2">
+          Manage and write your books
+        </p>
       </div>
 
       {/* Search */}
       <div className="relative max-w-md">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-[#94A3B8]" />
+        <input
+          type="text"
           placeholder="Search books..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pl-10"
+          className="w-full h-11 pl-11 pr-4 bg-white border border-[#E2E8F0] rounded-lg text-base text-[#0F172B] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#FF6321]/20 focus:border-[#FF6321]"
         />
       </div>
 
@@ -43,7 +40,7 @@ export default function BooksPage() {
 
       {/* Stats */}
       {!isLoading && books.length > 0 && (
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-[#94A3B8]">
           Showing {filteredBooks.length} of {books.length} books
         </div>
       )}

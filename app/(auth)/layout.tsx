@@ -6,14 +6,14 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen bg-white flex items-start justify-start px-[28px] py-[27px] gap-[28px]">
       {/* Left side - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">{children}</div>
+      <div className="w-[631px] h-[969px] flex flex-col justify-between items-center p-6 rounded-[20px]">
+        {children}
       </div>
 
-      {/* Right side - Carousel (hidden on mobile) */}
-      <div className="hidden lg:flex w-1/2 bg-primary/5 items-center justify-center p-12">
+      {/* Right side - Illustration */}
+      <div className="w-[725px] h-[968px] bg-[#F8FAFC] rounded-[20px] relative overflow-hidden">
         <AuthCarousel />
       </div>
     </div>
