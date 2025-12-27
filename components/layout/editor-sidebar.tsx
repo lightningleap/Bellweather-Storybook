@@ -5,42 +5,43 @@ import { useEditor } from '@/hooks/use-editor'
 import { useAuth } from '@/contexts/auth-context'
 import { ROUTES } from '@/lib/constants'
 import Image from 'next/image'
+import { BookOpen, MessageSquare, Pen, Layers, PieChart, Play, Grid, Settings } from 'lucide-react'
 
 const editorItems = [
   {
     id: 'ai-chat',
     title: 'AI Chat',
-    image: '/icons/editor/Button Dark Mode.svg',
+    icon: MessageSquare,
     panel: 'ai-chat' as const,
   },
   {
     id: 'editor',
     title: 'Editor',
-    image: '/icons/editor/Button Dark Mode (1).svg',
+    icon: Pen,
     panel: null,
   },
   {
     id: 'outline',
     title: 'Outline',
-    image: '/icons/editor/Button Dark Mode (2).svg',
+    icon: Layers,
     panel: 'outline' as const,
   },
   {
     id: 'design',
     title: 'Design',
-    image: '/icons/editor/Button Dark Mode (3).svg',
+    icon: PieChart,
     panel: null,
   },
   {
     id: 'review',
     title: 'Review',
-    image: '/icons/editor/Button Dark Mode (4).svg',
+    icon: Play,
     panel: null,
   },
   {
     id: 'assets',
     title: 'Assets',
-    image: '/icons/editor/Button Dark Mode (5).svg',
+    icon: Grid,
     panel: null,
   },
 ]
@@ -61,9 +62,9 @@ export function EditorSidebar() {
   }
 
   return (
-    <aside className="w-[84px] bg-white border-r border-[#E2E8F0] flex flex-col items-center pt-0 pb-6">
-      {/* Logo/Home Button - CUSTOM-group.svg */}
-      <div className="h-[76px] flex items-center justify-center w-full">
+    <aside className="w-[84px] bg-[#F3F4F6] border-r border-[#E5E7EB] flex flex-col items-center justify-between pb-8 px-2">
+      {/* Logo/Home Button */}
+      <div className="h-[76px] flex items-center justify-center w-full py-8">
         <button
           className="flex items-center justify-center cursor-pointer"
           onClick={() => {
@@ -81,44 +82,52 @@ export function EditorSidebar() {
       </div>
 
       {/* Editor Items */}
-      <div className="flex flex-col items-center gap-1 px-2">
+      <div className="flex flex-col items-center py-5 rounded-[10.12px] flex-1">
         {editorItems.map((item) => {
           const isActive = item.panel === rightPanelView
+          const Icon = item.icon
 
           return (
             <button
               key={item.id}
-              className="w-[68px] h-[84px] flex items-center justify-center"
+              className={`flex flex-col items-center justify-center gap-1 px-0 py-4 rounded-xl transition-colors ${
+                isActive ? 'bg-white w-[60px] h-[76px]' : 'w-[68px] h-[84px]'
+              }`}
               onClick={() => handleItemClick(item)}
             >
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={68}
-                height={84}
-                className="w-full h-full"
+              <Icon
+                className={`w-7 h-7 ${
+                  isActive ? 'text-[#030712]' : 'text-[#364153]'
+                }`}
+                strokeWidth={2}
               />
+              <p
+                className={`text-xs font-medium text-center w-[68px] ${
+                  isActive ? 'text-[#030712]' : 'text-[#364153]'
+                }`}
+                style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+              >
+                {item.title}
+              </p>
             </button>
           )
         })}
 
-        {/* Settings - Button Dark Mode (6).svg - directly below Assets */}
-        <button className="w-[68px] h-[84px] flex items-center justify-center">
-          <Image
-            src="/icons/editor/Button Dark Mode (6).svg"
-            alt="Settings"
-            width={68}
-            height={84}
-            className="w-full h-full"
-          />
+        {/* Settings */}
+        <button className="flex flex-col items-center justify-center gap-1 px-0 py-4 w-[68px] h-[84px]">
+          <Settings className="w-7 h-7 text-[#364153]" strokeWidth={2} />
+          <p
+            className="text-xs font-medium text-center text-[#364153] w-[68px]"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
+            Settings
+          </p>
         </button>
       </div>
 
-      <div className="flex-1" />
-
       {/* Avatar - at the very bottom */}
       <button
-        className="w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+        className="w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity bg-white border-2 border-[#1E2939] rounded-full overflow-hidden"
         onClick={handleLogout}
         title="Logout"
       >
@@ -127,7 +136,6 @@ export function EditorSidebar() {
           alt="User Avatar"
           width={32}
           height={32}
-          className="rounded-full"
         />
       </button>
     </aside>
