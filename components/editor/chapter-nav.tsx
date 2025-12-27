@@ -48,7 +48,7 @@ export function ChapterNav() {
         )}
       </div>
 
-      <Button size="sm">Save</Button>
+      <Button size="sm">Save </Button>
     </div>
   )
 }
