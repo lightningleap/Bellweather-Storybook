@@ -46,9 +46,9 @@ export function PromptInput() {
                     <button
                       type="submit"
                       disabled={!prompt.trim() || isLoading}
-                      className="bg-gradient-to-b from-[#f4f4f4] to-[#fefefe] border-[2.89px] border-white rounded-[9.64px] shadow-[0px_0px_0.225px_0.225px_rgba(0,0,0,0.07),0px_0px_0.225px_0.675px_rgba(0,0,0,0.05),0px_2.698px_2.923px_-1.349px_rgba(0,0,0,0.25),0px_0.899px_3.598px_0.899px_rgba(0,0,0,0.12)] w-[33.25px] h-[33.25px] p-[10px] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="bg-gradient-to-b from-[#f4f4f4] to-[#fefefe] border-[2.89px] border-white rounded-[9.64px] shadow-[0px_0px_0.225px_0.225px_rgba(0,0,0,0.07),0px_0px_0.225px_0.675px_rgba(0,0,0,0.05),0px_2.698px_2.923px_-1.349px_rgba(0,0,0,0.25),0px_0.899px_3.598px_0.899px_rgba(0,0,0,0.12)] w-[33.25px] h-[33.25px] p-[6px] flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
-                      <ArrowUp className="w-2 h-2 text-[#0F172B]" strokeWidth={2.5} />
+                      <ArrowUp className="w-4 h-4 text-[#0F172B]" strokeWidth={2.5} />
                     </button>
                   </div>
                 </div>
