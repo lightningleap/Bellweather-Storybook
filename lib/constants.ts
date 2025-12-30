@@ -6,7 +6,7 @@ export const ROUTES = {
   OTP_VERIFY: '/otp-verify',
 
   // Main app routes
-  HOME: '/',
+  HOME: '/home',
   BOOKS: '/books',
 
   // Editor routes

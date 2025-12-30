@@ -9,7 +9,7 @@ export default function HomePage() {
   const { books, isLoading } = useBooks()
 
   return (
-    <div className="flex flex-col items-center w-full max-w-[700px] mx-auto pt-[140.21px] pb-12">
+    <div className="flex flex-col items-center w-full max-w-[700px] mx-auto ">
       {/* Title Section - Greeting + Heading */}
       <div className="w-full mb-[40.85px]">
         <DashboardGreeting />
