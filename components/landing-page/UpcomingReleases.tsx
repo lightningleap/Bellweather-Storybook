@@ -50,7 +50,7 @@ export function UpcomingReleases() {
           {releases.map((release, index) => (
             <div key={index} className="group grid grid-cols-12 gap-4 py-8 border-b border-border items-center hover:bg-secondary/30 transition-colors px-2 cursor-pointer">
               <div className="col-span-3 md:col-span-2 text-sm font-medium text-muted-foreground flex items-center gap-2">
-                <Calendar className="w-4 h-4 opacity-50" /> {release.date}
+                {/* <Calendar className="w-4 h-4 opacity-50" /> {release.date} */}
               </div>
               <div className="col-span-9 md:col-span-6">
                 <h3 className="text-2xl font-heading group-hover:translate-x-2 transition-transform duration-300">
