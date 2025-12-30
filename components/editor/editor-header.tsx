@@ -10,7 +10,14 @@ export function EditorHeader() {
   const { currentBook } = useEditor()
 
   return (
-    <div className="flex items-center justify-between px-4 py-[14px] h-[65.25px] border-b border-border bg-background">
+    <div
+      className="flex items-center justify-between px-4 py-[14px] h-[65.25px] bg-white relative"
+      style={{
+        backgroundImage: 'radial-gradient(circle, #E2E8F0 1px, transparent 1px)',
+        backgroundSize: '20px 20px',
+        backgroundPosition: '0 0',
+      }}
+    >
       {/* Left side - Home button and title */}
       <div className="flex items-center gap-2.5 flex-1">
         <button

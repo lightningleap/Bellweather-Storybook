@@ -45,6 +45,12 @@ const editorItems = [
     icon: Grid,
     panel: null,
   },
+  {
+    id: 'settings',
+    title: 'Settings',
+    icon: Settings,
+    panel: null,
+  },
 ]
 
 export function EditorSidebar() {
@@ -122,17 +128,6 @@ export function EditorSidebar() {
             </button>
           )
         })}
-
-        {/* Settings */}
-        <button className="flex flex-col items-center justify-center gap-1 px-0 py-4 w-[68px] h-[84px]">
-          <Settings className="w-7 h-7 text-[#364153]" strokeWidth={2} />
-          <p
-            className="text-xs font-medium text-center text-[#364153] w-[68px]"
-            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
-          >
-            Settings
-          </p>
-        </button>
       </div>
 
       {/* Avatar - at the very bottom */}
