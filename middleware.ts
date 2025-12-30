@@ -10,6 +10,9 @@ const authPaths = ['/signin', '/signup', '/otp-verify']
 // Public routes that don't need any checks
 const publicPaths = ['/']
 
+// Remove root redirect - let it serve the landing page
+const rootPathRedirectEnabled = false
+
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
@@ -36,8 +39,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/home', request.url))
   }
 
-  // Root path - redirect based on authentication status
-  if (pathname === '/') {
+  // Root path - serve the landing page without redirect
+  if (pathname === '/' && rootPathRedirectEnabled) {
     const redirectUrl = token ? '/home' : '/signin'
     return NextResponse.redirect(new URL(redirectUrl, request.url))
   }
