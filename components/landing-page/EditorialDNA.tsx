@@ -1,5 +1,4 @@
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ScanFace, Activity, Fingerprint } from "lucide-react";
 
 export function EditorialDNA() {
   return (
@@ -32,30 +31,6 @@ export function EditorialDNA() {
              <p className="text-lg font-serif text-muted-foreground mb-8 leading-relaxed">
                We analyze the underlying structure of your manuscript—its cadence, vocabulary, and emotional arc—to create a unique "genetic" profile. This helps you understand exactly where your book fits in the market.
              </p>
-             
-             <div className="space-y-6">
-               <div className="flex gap-4 items-start">
-                 <ScanFace className="w-6 h-6 text-foreground shrink-0" />
-                 <div>
-                   <h4 className="font-heading text-lg">Voice Signature</h4>
-                   <p className="text-sm text-muted-foreground font-serif">Identify the specific stylistic traits that define your authorial voice.</p>
-                 </div>
-               </div>
-               <div className="flex gap-4 items-start">
-                 <Activity className="w-6 h-6 text-foreground shrink-0" />
-                 <div>
-                   <h4 className="font-heading text-lg">Pacing Analysis</h4>
-                   <p className="text-sm text-muted-foreground font-serif">Visualize where your story drags or rushes, allowing for precise revision.</p>
-                 </div>
-               </div>
-               <div className="flex gap-4 items-start">
-                 <Fingerprint className="w-6 h-6 text-foreground shrink-0" />
-                 <div>
-                   <h4 className="font-heading text-lg">Market Positioning</h4>
-                   <p className="text-sm text-muted-foreground font-serif">Map your book's themes against successful titles in your genre.</p>
-                 </div>
-               </div>
-             </div>
           </div>
 
         </div>

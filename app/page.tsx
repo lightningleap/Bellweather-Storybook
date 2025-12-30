@@ -4,7 +4,6 @@ import { MissionStatement } from "@/components/landing-page/MissionStatement";
 import { AcquisitionBot } from "@/components/landing-page/AcquisitionBot";
 import { PublishingPaths } from "@/components/landing-page/PublishingPaths";
 import { TheSuite } from "@/components/landing-page/TheSuite";
-import { EditorialDNA } from "@/components/landing-page/EditorialDNA";
 import { NarrapixShowcase } from "@/components/landing-page/NarrapixShowcase";
 import { CollaborativeWorkspace } from "@/components/landing-page/CollaborativeWorkspace";
 import { TheSlushPileRedefined } from "@/components/landing-page/TheSlushPileRedefined";
@@ -20,7 +19,8 @@ import { TheJournal } from "@/components/landing-page/TheJournal";
 import { TheBellwetherPrize } from "@/components/landing-page/TheBellwetherPrize";
 import { FAQ } from "@/components/landing-page/FAQ";
 import { JoinTheGuild } from "@/components/landing-page/JoinTheGuild";
-import { Newsletter } from "@/components/landing-page/Newsletter";
+// import { Newsletter } from "@/components/landing-page/Newsletter";
+import { ProcessPageFlip } from "@/components/landing-page/ProcessPageFlip";
 import { Footer } from "@/components/landing-page/Footer";
 
 export default function Home() {
@@ -31,25 +31,25 @@ export default function Home() {
         <Hero />
         <MissionStatement />
         <AcquisitionBot />
+        <ProcessPageFlip accent="#FF6321" accentDark="#E55A1A" />
         <TheTimelineOfInfluence />
-        <PublishingPaths />
+        {/* <PublishingPaths /> */}
         <TheSuite />
-        <EditorialDNA />
-        <NarrapixShowcase />
+        {/* <NarrapixShowcase /> */}
         <CollaborativeWorkspace />
-        <TheSlushPileRedefined />
+        {/* <TheSlushPileRedefined /> */}
         <MentorshipNetwork />
-        <TheLivingContract />
+        {/* <TheLivingContract /> */}
         <GlobalRightsMap />
         <AudioSynthesis />
         <HumanInfrastructure />
         <SuccessStory />
         <EthicalCommitment />
-        <TheJournal />
-        <TheBellwetherPrize />
+        {/* <TheJournal /> */}
+        {/* <TheBellwetherPrize /> */}
         <FAQ />
         <JoinTheGuild />
-        <Newsletter />
+        {/* <Newsletter /> */}
       </main>
       <Footer />
     </div>

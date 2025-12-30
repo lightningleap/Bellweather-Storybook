@@ -52,6 +52,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "19.2.3",
     "react-hook-form": "^7.69.0",
+    "react-pageflip": "^2.0.3",
     "react-popper": "^2.3.0",
     "react-resizable-panels": "^4.1.0",
     "react-responsive-masonry": "^2.7.1",
