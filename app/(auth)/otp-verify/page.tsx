@@ -9,7 +9,7 @@ export default function OTPVerifyPage() {
       {/* Top Section */}
       <div className="flex flex-col items-center w-[583px] gap-0">
         <div className="flex flex-row justify-between items-center w-full h-7 gap-[221px]">
-          <Logo />
+          <Logo href="/" />
           <Link
             href={ROUTES.SIGNIN}
             className="text-sm font-normal text-[#62748E] hover:text-[#0F172B] transition-colors text-center"

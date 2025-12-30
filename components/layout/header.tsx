@@ -8,8 +8,18 @@ export function Header() {
   const { user } = useAuth()
 
   return (
-    <header className="h-[78px] border-b border-[#E2E8F0] bg-white sticky top-0 z-40">
-      <div className="flex h-full items-center justify-between px-[30px] py-5">
+    <header className="h-[78px] bg-white sticky top-0 z-40 relative">
+      {/* Dotted Background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle, #E2E8F0 1px, transparent 1px)`,
+          backgroundSize: '20px 20px',
+          backgroundPosition: '0 0',
+          zIndex: 0,
+        }}
+      />
+      <div className="flex h-full items-center justify-between px-[30px] py-5 relative z-10">
         {/* Logo */}
         <Logo />
 

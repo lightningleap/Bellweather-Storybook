@@ -32,7 +32,7 @@ export function BookGrid({ books, isLoading }: BookGridProps) {
   }
 
   return (
-    <div className="flex items-start justify-between w-full gap-[28.71px]">
+    <div className="flex items-start  w-full gap-[28.71px]">
       {books.map((book) => (
         <BookCard key={book.id} book={book} />
       ))}

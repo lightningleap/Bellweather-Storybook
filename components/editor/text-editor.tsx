@@ -25,10 +25,10 @@ export function TextEditor() {
 
   return (
     <div
-      className="flex-1 flex flex-col items-center py-4 px-8 gap-4 overflow-y-auto pb-32 relative"
+      className="flex-1 flex flex-col items-center py-4 px-8 gap-4 overflow-y-auto pb-32 relative bg-white"
       style={{
-        backgroundImage: `radial-gradient(circle, #D1D5DC 0.5px, transparent 0.5px)`,
-        backgroundSize: '8.77px 8.77px',
+        backgroundImage: 'radial-gradient(circle, #E2E8F0 1px, transparent 1px)',
+        backgroundSize: '20px 20px',
         backgroundPosition: '0 0'
       }}
     >

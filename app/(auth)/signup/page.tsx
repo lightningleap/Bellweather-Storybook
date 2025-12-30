@@ -10,7 +10,7 @@ export default function SignUpPage() {
       {/* Top Section */}
       <div className="flex flex-col items-center w-[583px] gap-0">
         <div className="flex flex-row justify-between items-center w-full h-7">
-          <Logo />
+          <Logo href="/" />
           <p
             className="text-sm text-[#62748E] text-center"
             style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}

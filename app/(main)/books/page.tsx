@@ -14,7 +14,7 @@ export default function BooksPage() {
   )
 
   return (
-    <div className="w-full max-w-6xl mx-auto py-8 px-6 space-y-8">
+    <div className="w-full max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div>
         <h1 className="text-[32px] font-semibold text-[#0F172B]">My Books</h1>

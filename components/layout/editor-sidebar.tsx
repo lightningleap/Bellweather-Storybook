@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useEditor } from '@/hooks/use-editor'
 import { useAuth } from '@/contexts/auth-context'
@@ -44,16 +45,31 @@ const editorItems = [
     icon: Grid,
     panel: null,
   },
+  {
+    id: 'settings',
+    title: 'Settings',
+    icon: Settings,
+    panel: null,
+  },
 ]
 
 export function EditorSidebar() {
   const { rightPanelView, setRightPanelView } = useEditor()
   const { logout } = useAuth()
   const router = useRouter()
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
 
   const handleItemClick = (item: typeof editorItems[0]) => {
+    // Toggle selected item - if clicking the same item, deselect it
+    const newSelectedItem = selectedItem === item.id ? null : item.id
+    setSelectedItem(newSelectedItem)
+
+    // If item has a panel, toggle it
     if (item.panel) {
-      setRightPanelView(rightPanelView === item.panel ? null : item.panel)
+      setRightPanelView(newSelectedItem ? item.panel : null)
+    } else {
+      // If item has no panel, close any open panel
+      setRightPanelView(null)
     }
   }
 
@@ -84,7 +100,7 @@ export function EditorSidebar() {
       {/* Editor Items */}
       <div className="flex flex-col items-center py-5 rounded-[10.12px] flex-1">
         {editorItems.map((item) => {
-          const isActive = item.panel === rightPanelView
+          const isActive = item.id === selectedItem
           const Icon = item.icon
 
           return (
@@ -112,17 +128,6 @@ export function EditorSidebar() {
             </button>
           )
         })}
-
-        {/* Settings */}
-        <button className="flex flex-col items-center justify-center gap-1 px-0 py-4 w-[68px] h-[84px]">
-          <Settings className="w-7 h-7 text-[#364153]" strokeWidth={2} />
-          <p
-            className="text-xs font-medium text-center text-[#364153] w-[68px]"
-            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
-          >
-            Settings
-          </p>
-        </button>
       </div>
 
       {/* Avatar - at the very bottom */}
