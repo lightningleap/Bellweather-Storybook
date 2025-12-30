@@ -86,7 +86,7 @@ export function Header() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 bg-white pt-24 px-6 md:hidden flex flex-col space-y-8 h-screen"
+            className="fixed inset-0 bg-white pt-24 px-6 md:hidden flex flex-col space-y-8 min-h-screen overflow-y-auto"
           >
             {navLinks.map((link) => (
               <a

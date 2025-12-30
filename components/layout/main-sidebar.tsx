@@ -41,8 +41,8 @@ export function MainSidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-[232px] h-screen flex flex-col justify-between py-0 px-4 pb-4 bg-white border-r border-[#E2E8F0]">
-      <div className="flex flex-col w-[200px]">
+    <aside className="w-[232px] h-screen fixed left-0 top-0 flex flex-col justify-between py-0 px-4 pb-4 bg-white border-r border-[#E2E8F0] overflow-y-auto">
+      <div className="flex flex-col w-[200px] pt-[80px]">
         {/* Main Navigation */}
         <nav className="flex flex-col">
           {navigationItems.map((item, index) => {

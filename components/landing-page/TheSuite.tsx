@@ -38,7 +38,7 @@ export function TheSuite() {
     <section className="py-24 bg-secondary/10">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-12 gap-12 items-start">
-          <div className="lg:col-span-4 sticky top-24">
+          <div className="lg:col-span-4 lg:sticky lg:top-24">
              <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium mb-3 block">
                The Toolkit
              </span>

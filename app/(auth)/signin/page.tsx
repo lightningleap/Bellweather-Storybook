@@ -8,12 +8,12 @@ export default function SignInPage() {
   return (
     <>
       {/* Top Section */}
-      <div className="flex flex-col items-center w-[583px] gap-0">
-        <div className="flex flex-row justify-between items-center w-full h-7 gap-[221px]">
+      <div className="flex flex-col items-center w-full gap-0">
+        <div className="flex flex-row justify-between items-center w-full h-7 gap-4">
           <Logo />
           <Link
             href={ROUTES.SIGNUP}
-            className="text-sm font-normal text-[#62748E] hover:text-[#0F172B] transition-colors text-center"
+            className="text-sm font-normal text-[#62748E] hover:text-[#0F172B] transition-colors text-center whitespace-nowrap"
           >
             Don&apos;t have an account? <span className="text-[#FF6321] font-medium">Sign up</span>
           </Link>
@@ -21,8 +21,8 @@ export default function SignInPage() {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col items-center w-[450px] gap-6">
-        <div className="flex flex-col items-start w-full gap-8">
+      <div className="flex flex-col items-center w-full gap-6 px-4 sm:px-0">
+        <div className="flex flex-col items-start w-full gap-8 max-w-[450px]">
           {/* Header */}
           <div className="flex flex-col items-start w-full gap-1">
             <h1 className="text-[30px] font-semibold leading-9 text-[#0F172B] w-full">
@@ -38,14 +38,14 @@ export default function SignInPage() {
         </div>
 
         {/* Divider */}
-        <div className="flex flex-row items-center w-full h-5 gap-3">
+        <div className="flex flex-row items-center w-full h-5 gap-3 max-w-[450px]">
           <div className="flex-1 h-px border-t border-[#E2E8F0]" />
-          <span className="text-sm font-normal text-[#62748E]">Or sign in with</span>
+          <span className="text-sm font-normal text-[#62748E] whitespace-nowrap">Or sign in with</span>
           <div className="flex-1 h-px border-t border-[#E2E8F0]" />
         </div>
 
         {/* Social Auth Buttons */}
-        <div className="flex flex-row items-start gap-[20px] relative">
+        <div className="flex flex-row items-start gap-[20px] relative flex-wrap justify-center">
           {/* SSO */}
           <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
             <Image src="/icons/Frame.svg" alt="SSO" width={24} height={24} />
@@ -74,7 +74,7 @@ export default function SignInPage() {
       </div>
 
       {/* Footer */}
-      <div className="flex flex-row justify-between items-center w-[583px] h-5">
+      <div className="flex flex-row justify-between items-center w-full h-5 gap-2 px-4 sm:px-0 flex-wrap">
         <p className="text-sm font-normal text-[#90A1B9]">
           © 2025 Kasana Inc. All rights reserved.
         </p>
