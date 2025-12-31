@@ -41,6 +41,21 @@ export function Hero() {
                 Explore the Framework <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="inline-flex items-center gap-3 bg-[#FF6321]/10 border border-[#FF6321]/30 rounded-full px-5 py-2.5 mt-2"
+            >
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF6321] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF6321]"></span>
+              </span>
+              <a href="/trial" className="text-[#FF6321] hover:text-[#E55A1A] font-medium text-base">
+                Try our AI assistant free — no signup required
+              </a>
+              <ArrowRight className="w-4 h-4 text-[#FF6321]" />
+            </motion.div>
           </div>
 
           <div className="lg:col-span-5 relative">

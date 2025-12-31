@@ -110,6 +110,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(mockUser))
       setUser(mockUser)
 
+      // Check if this is a new signup
+      const authType = sessionStorage.getItem('pending_auth_type')
+
       // Clear pending auth data
       sessionStorage.removeItem('pending_auth_email')
       sessionStorage.removeItem('pending_auth_type')
@@ -118,8 +121,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Set cookie for middleware (in real app, this would come from backend)
       document.cookie = `auth-token=${mockToken}; path=/; max-age=${7 * 24 * 60 * 60}`
 
-      // Redirect to home
-      router.push(ROUTES.HOME)
+      // Redirect to chat for new signups, home for existing users
+      if (authType === 'signup') {
+        router.push('/chat')
+      } else {
+        router.push(ROUTES.HOME)
+      }
     } catch (error) {
       if (error instanceof ApiError) {
         throw new Error(error.message)

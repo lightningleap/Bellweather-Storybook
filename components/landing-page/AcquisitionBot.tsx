@@ -78,8 +78,9 @@ export function AcquisitionBot() {
                </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-10 flex flex-wrap gap-4">
                <Button className="rounded-none px-8 py-6 text-lg" onClick={() => window.location.href = '/signup'}>Start Your Manuscript Conversation</Button>
+               <Button variant="outline" className="rounded-none px-8 py-6 text-lg border-2 border-[#FF6321] text-[#FF6321] hover:bg-[#FF6321] hover:text-white" onClick={() => window.location.href = '/trial'}>Try It Free</Button>
             </div>
           </div>
 
