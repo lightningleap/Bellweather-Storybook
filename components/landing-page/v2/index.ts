@@ -1,0 +1,9 @@
+export { HeaderV2 } from './HeaderV2';
+export { HeroV2 } from './HeroV2';
+export { PhilosophyV2 } from './PhilosophyV2';
+export { ProcessV2 } from './ProcessV2';
+export { ValuePropositionV2 } from './ValuePropositionV2';
+export { ServicesV2 } from './ServicesV2';
+export { TrustResultsV2 } from './TrustResultsV2';
+export { FinalCTAV2 } from './FinalCTAV2';
+export { FooterV2 } from './FooterV2';

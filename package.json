@@ -50,6 +50,7 @@
     "embla-carousel-react": "^8.6.0",
     "groq-sdk": "^0.37.0",
     "input-otp": "^1.4.2",
+    "lenis": "^1.3.17",
     "lucide-react": "^0.562.0",
     "motion": "^12.23.26",
     "next": "16.1.1",

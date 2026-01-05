@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Search, ShoppingBag } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import Image from "next/image";
 
-export function Header() {
+export function HeaderV2() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -34,8 +34,8 @@ export function Header() {
   const navLinks = [
     { name: "Books", href: "#books" },
     { name: "Authors", href: "#authors" },
-    { name: "Essays", href: "#essays" },
-    { name: "Events", href: "#events" },
+    { name: "Services", href: "#services" },
+    { name: "About", href: "#about" },
   ];
 
   return (
@@ -70,15 +70,12 @@ export function Header() {
           ))}
         </nav>
 
-        {/* Icons */}
-        <div className="hidden md:flex items-center space-x-4">
-          <button className="p-2 hover:bg-secondary rounded-full transition-colors">
-            <Search className="w-5 h-5" />
-          </button>
-          <button className="p-2 hover:bg-secondary rounded-full transition-colors">
-            <ShoppingBag className="w-5 h-5" />
-          </button>
-          <Button className="ml-2 font-heading rounded-none bg-[#FF6321] hover:bg-[#E55A1A] text-white transition-colors" onClick={() => window.location.href = '/signup'}>
+        {/* CTA */}
+        <div className="hidden md:flex items-center">
+          <Button
+            className="font-heading rounded-none bg-[#FF6321] hover:bg-[#E55A1A] text-white transition-colors px-6"
+            onClick={() => window.location.href = '/signup'}
+          >
             Submit Manuscript
           </Button>
         </div>
@@ -111,14 +108,13 @@ export function Header() {
                 {link.name}
               </a>
             ))}
-            <div className="pt-8 border-t border-[#E2E8F0] flex flex-col space-y-4">
-              <Button className="w-full justify-start text-lg text-[#0F172B]" variant="ghost">
-                <Search className="mr-2 w-5 h-5" /> Search
+            <div className="pt-8 border-t border-[#E2E8F0]">
+              <Button
+                className="w-full rounded-none bg-[#FF6321] hover:bg-[#E55A1A] text-white"
+                onClick={() => window.location.href = '/signup'}
+              >
+                Submit Manuscript
               </Button>
-              <Button className="w-full justify-start text-lg text-[#0F172B]" variant="ghost">
-                <ShoppingBag className="mr-2 w-5 h-5" /> Cart (0)
-              </Button>
-              <Button className="w-full rounded-none mt-4 bg-[#FF6321] hover:bg-[#E55A1A] text-white" onClick={() => window.location.href = '/signup'}>Submit Manuscript</Button>
             </div>
           </motion.div>
         )}

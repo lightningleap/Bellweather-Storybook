@@ -2,6 +2,12 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Play, Mic, AudioWaveform } from "lucide-react";
 import { Button } from "./ui/button";
 
+// Pre-defined waveform heights to avoid hydration mismatch from Math.random()
+const waveformHeights = [
+  45, 78, 23, 89, 34, 67, 12, 92, 56, 41,
+  73, 28, 85, 19, 64, 47, 81, 35, 58, 70
+];
+
 export function AudioSynthesis() {
   return (
     <section className="py-24 bg-secondary text-secondary-foreground relative overflow-hidden">
@@ -38,8 +44,8 @@ export function AudioSynthesis() {
                    </div>
                 </div>
                 <div className="h-8 flex items-center gap-1">
-                   {[...Array(20)].map((_, i) => (
-                      <div key={i} className="w-1 bg-foreground/20 rounded-full" style={{ height: `${Math.random() * 100}%` }} />
+                   {waveformHeights.map((height, i) => (
+                      <div key={i} className="w-1 bg-foreground/20 rounded-full" style={{ height: `${height}%` }} />
                    ))}
                 </div>
              </div>
