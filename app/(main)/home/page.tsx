@@ -41,9 +41,9 @@ export default function HomePage() {
   }, [user?.id])
 
   return (
-    <div className="flex flex-col items-center w-full max-w-[700px] mx-auto ">
+    <div className="flex flex-col items-center w-full max-w-[700px] mx-auto">
       {/* Title Section - Greeting + Heading */}
-      <div className="w-full mb-[40.85px]">
+      <div className="w-full mb-8 md:mb-[40.85px]">
         <DashboardGreeting />
       </div>
 
@@ -52,8 +52,8 @@ export default function HomePage() {
         <PromptInput />
       </div>
 
-      {/* Active Session / Start New Project CTA */}
-      <div className="w-full mb-16">
+      {/* Active Session / Start New Project CTA - Hidden on mobile per Figma */}
+      <div className="hidden md:block w-full mb-16">
         {activeSession && activeSession.progress > 0 ? (
           // Continue existing conversation
           <Link href="/chat" className="block">
@@ -110,8 +110,8 @@ export default function HomePage() {
       </div>
 
       {/* My Books Section */}
-      <div className="w-full">
-        <h2 className="text-xl font-semibold text-[#0F172B] mb-8" style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}>
+      <div className="w-full pt-4 md:pt-0">
+        <h2 className="text-base md:text-xl font-semibold text-[#030712] mb-4 md:mb-8 px-[6px]" style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}>
           My Books
         </h2>
         <BookGrid books={books.slice(0, 4)} isLoading={isLoading} />

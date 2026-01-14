@@ -8,11 +8,11 @@ export default function SignUpPage() {
   return (
     <>
       {/* Top Section */}
-      <div className="flex flex-col items-center w-[583px] gap-0">
-        <div className="flex flex-row justify-between items-center w-full h-7">
+      <div className="flex flex-col items-start md:items-center w-full md:w-[583px] gap-5 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full md:h-7 gap-5 md:gap-0">
           <Logo href="/" />
           <p
-            className="text-sm text-[#62748E] text-center"
+            className="text-sm text-[#62748E] text-left md:text-center"
             style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
           >
             Already have an account?{' '}
@@ -27,7 +27,7 @@ export default function SignUpPage() {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col items-center w-[450px] gap-6">
+      <div className="flex flex-col items-center w-full md:w-[450px] gap-6">
         <div className="flex flex-col items-start w-full gap-8">
           {/* Header */}
           <div className="flex flex-col items-start w-full gap-1">
@@ -53,7 +53,7 @@ export default function SignUpPage() {
         <div className="flex flex-row items-center w-full h-5 gap-3">
           <div className="flex-1 h-px bg-[#E2E8F0]" />
           <span
-            className="text-sm font-normal text-[#62748E]"
+            className="text-sm font-normal text-[#62748E] whitespace-nowrap"
             style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
           >
             Or sign up with
@@ -62,9 +62,9 @@ export default function SignUpPage() {
         </div>
 
         {/* Social Auth Buttons */}
-        <div className="flex flex-row items-start gap-[21.5px]">
+        <div className="flex flex-row items-start justify-start md:justify-center gap-[26px] md:gap-[21.5px] w-full overflow-x-auto">
           {/* SSO */}
-          <div className="flex flex-col items-center gap-[6px]">
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
             <button
               disabled
               className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center"
@@ -77,7 +77,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Facebook */}
-          <div className="flex flex-col items-center gap-[6px]">
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
             <button
               disabled
               className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center"
@@ -90,7 +90,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Google */}
-          <div className="flex flex-col items-center gap-[6px]">
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
             <button
               disabled
               className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center"
@@ -103,7 +103,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Apple */}
-          <div className="flex flex-col items-center gap-[6px]">
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
             <button
               disabled
               className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center"
@@ -116,7 +116,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Microsoft */}
-          <div className="flex flex-col items-center gap-[6px]">
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
             <button
               disabled
               className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center"
@@ -131,14 +131,14 @@ export default function SignUpPage() {
       </div>
 
       {/* Footer */}
-      <div className="flex flex-row justify-between items-center w-[583px] h-5">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full md:w-[583px] gap-5 md:h-5">
         <p
-          className="text-sm font-normal text-[#90A1B9]"
+          className="text-sm font-normal text-[#90A1B9] order-1 md:order-none"
           style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
         >
           © 2025 Kasana Inc. All rights reserved.
         </p>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 order-2 md:order-none">
           <Link
             href="/privacy"
             className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors"

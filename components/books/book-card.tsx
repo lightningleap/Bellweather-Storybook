@@ -18,7 +18,7 @@ export function BookCard({ book }: BookCardProps) {
 
   return (
     <div
-      className="cursor-pointer transition-all duration-200 flex flex-col gap-4 rounded-2xl"
+      className="cursor-pointer transition-all duration-200 flex flex-col gap-[16px] rounded-2xl"
       onClick={handleClick}
     >
       {/* Book Cover */}

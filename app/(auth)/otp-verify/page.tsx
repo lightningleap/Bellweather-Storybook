@@ -7,47 +7,68 @@ export default function OTPVerifyPage() {
   return (
     <>
       {/* Top Section */}
-      <div className="flex flex-col items-center w-[583px] gap-0">
-        <div className="flex flex-row justify-between items-center w-full h-7 gap-[221px]">
+      <div className="flex flex-col items-start md:items-center w-full md:w-[583px] gap-5 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full md:h-7 gap-5 md:gap-0">
           <Logo href="/" />
-          <Link
-            href={ROUTES.SIGNIN}
-            className="text-sm font-normal text-[#62748E] hover:text-[#0F172B] transition-colors text-center"
+          <p
+            className="text-sm text-[#62748E] text-left md:text-center"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
           >
-            Back to <span className="text-[#FF6321] font-medium">Sign in</span>
-          </Link>
+            Don&apos;t have account?{' '}
+            <Link
+              href={ROUTES.SIGNUP}
+              className="font-medium text-[#0F172B] hover:text-[#FF6321] transition-colors"
+            >
+              Sign up
+            </Link>
+          </p>
         </div>
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col items-center w-[450px] gap-6">
-        <div className="flex flex-col items-start w-full gap-8">
-          {/* Header */}
-          <div className="flex flex-col items-start w-full gap-1">
-            <h1 className="text-[30px] font-semibold leading-9 text-[#0F172B] w-full">
-              Verify your email
-            </h1>
-            <p className="text-base font-normal leading-6 text-[#62748E]">
-              We&apos;ve sent a 6-digit code to your email
-            </p>
-          </div>
-
-          {/* OTP Form */}
-          <OTPVerification />
+      <div className="flex flex-col items-center w-full md:w-[450px] gap-8">
+        {/* Header */}
+        <div className="flex flex-col items-start w-full gap-1">
+          <h1
+            className="text-[24px] font-semibold leading-8 text-[#0F172B] w-full"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
+            Enter verification code
+          </h1>
+          <p
+            className="text-base font-normal leading-6 text-[#62748E]"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
+            Please enter the code we sent to your email.
+          </p>
         </div>
+
+        {/* OTP Form */}
+        <OTPVerification />
       </div>
 
       {/* Footer */}
-      <div className="flex flex-row justify-between items-center w-[583px] h-5">
-        <p className="text-sm font-normal text-[#90A1B9]">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full md:w-[583px] gap-5 md:h-5">
+        <p
+          className="text-sm font-normal text-[#90A1B9] order-1 md:order-none"
+          style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+        >
           © 2025 Kasana Inc. All rights reserved.
         </p>
-        <div className="flex flex-row items-center gap-2">
-          <Link href="/privacy" className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors">
+        <div className="flex flex-row items-center gap-2 order-2 md:order-none">
+          <Link
+            href="/privacy"
+            className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
             Privacy
           </Link>
           <div className="w-[5px] h-[5px] bg-[#90A1B9] rounded-full" />
-          <Link href="/terms" className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors">
+          <Link
+            href="/terms"
+            className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors"
+            style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+          >
             Terms & Condition
           </Link>
         </div>

@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
-import { Home, BookOpen, User, Settings, Headphones, Menu, X, LogOut } from 'lucide-react'
+import { Home, BookOpen, User, Settings, Headphones, LogOut } from 'lucide-react'
 import { ROUTES } from '@/lib/constants'
 import { useAuth } from '@/contexts/auth-context'
+import { useSidebar } from '@/contexts/sidebar-context'
+import { Logo } from './logo'
 
 const navigationItems = [
   {
@@ -42,55 +43,36 @@ const bottomItems = [
 export function MainSidebar() {
   const pathname = usePathname()
   const { logout } = useAuth()
-  const [isOpen, setIsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-      if (window.innerWidth >= 768) {
-        setIsOpen(false)
-      }
-    }
-
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  const { isOpen, isMobile, closeSidebar } = useSidebar()
 
   const handleLogout = () => {
     logout()
   }
 
+  const handleLinkClick = () => {
+    if (isMobile) {
+      closeSidebar()
+    }
+  }
+
   return (
     <>
-      {/* Mobile Menu Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 hover:bg-gray-100 rounded-lg"
-      >
-        {isOpen ? (
-          <X className="w-6 h-6" />
-        ) : (
-          <Menu className="w-6 h-6" />
-        )}
-      </button>
-
       {/* Mobile Overlay */}
-      {isMobile && isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-30 md:hidden"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      <div
+        className={`
+          fixed inset-0 bg-black/50 z-30 md:hidden
+          transition-opacity duration-300 ease-in-out
+          ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
+        `}
+        onClick={closeSidebar}
+      />
 
       {/* Sidebar */}
       <aside className={`
-        fixed left-0 top-0 h-screen flex flex-col py-0 px-4 pb-4 bg-white relative z-40
+        fixed left-0 top-0 h-screen flex flex-col p-4 bg-white z-40
         transition-transform duration-300 ease-in-out
-        md:w-[232px] md:static md:translate-x-0
-        ${isMobile && !isOpen ? '-translate-x-full' : 'translate-x-0'}
-        ${isMobile ? 'w-[232px]' : 'w-[232px]'}
+        w-[280px] md:w-[232px] md:static md:py-0 md:px-4 md:pb-4 md:relative
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
       `}>
       {/* Dotted Background */}
       <div
@@ -105,7 +87,12 @@ export function MainSidebar() {
 
       {/* Scrollable content */}
       <div className="flex-1 overflow-y-auto relative z-10">
-        <div className="flex flex-col w-[200px] pt-5">
+        {/* Mobile Logo */}
+        <div className="md:hidden mb-10">
+          <Logo />
+        </div>
+
+        <div className="flex flex-col w-full md:w-[200px] md:pt-5">
           {/* Main Navigation */}
           <nav className="flex flex-col">
             {navigationItems.map((item, index) => {
@@ -113,7 +100,7 @@ export function MainSidebar() {
               const isActive = pathname === item.href || (item.href === '/' && pathname === '/home')
 
               return (
-                <Link key={item.href} href={item.href}>
+                <Link key={item.href} href={item.href} onClick={handleLinkClick}>
                   <div
                     className={`flex flex-col ${
                       index === 0
@@ -159,13 +146,12 @@ export function MainSidebar() {
         </div>
 
       {/* Bottom Items – always visible */}
-      <div className="flex flex-col w-full relative z-10 flex-shrink-0 gap-1 mt-2 mb-24">
+      <div className="flex flex-col w-full relative z-10 flex-shrink-0 gap-1 mt-2 mb-4 md:mb-24">
         {bottomItems.map((item) => {
           const Icon = item.icon
-          const isActive = pathname === item.href
 
           return (
-            <Link key={item.href} href={item.href}>
+            <Link key={item.href} href={item.href} onClick={handleLinkClick}>
               <div className="flex items-center gap-2 px-3 py-[10px] rounded-lg w-full hover:bg-[#F8FAFC] transition-colors">
                 <Icon className="w-[14px] h-[14px] text-[#030712] shrink-0" strokeWidth={2} />
                 <p className="text-xs font-semibold leading-4 text-[#030712]" style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}>
@@ -178,7 +164,7 @@ export function MainSidebar() {
         <button
           onClick={handleLogout}
           type="button"
-          className="flex items-center gap-2 px-3 py-[10px] rounded-lg w-full hover:bg-[#F8FAFC] transition-colors text-left cursor-pointer"
+          className="flex items-center gap-2 px-3 py-[10px] rounded-lg w-full hover:bg-[#F8FAFC] transition-colors text-left cursor-pointer md:block hidden"
         >
           <LogOut className="w-[14px] h-[14px] text-[#030712] shrink-0" strokeWidth={2} />
           <p className="text-xs font-semibold leading-4 text-[#030712]" style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}>

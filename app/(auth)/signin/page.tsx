@@ -8,17 +8,17 @@ export default function SignInPage() {
   return (
     <>
       {/* Top Section */}
-      <div className="flex flex-col items-center w-[583px] gap-0">
-        <div className="flex flex-row justify-between items-center w-full h-7">
+      <div className="flex flex-col items-start md:items-center w-full md:w-[583px] gap-5 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full md:h-7 gap-5 md:gap-0">
           <Logo href="/" />
           <p
-            className="text-sm text-[#62748E] text-center"
+            className="text-sm text-[#62748E] text-left md:text-center"
             style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
           >
-            Don&apos;t have an account?{' '}
+            Don&apos;t have account?{' '}
             <Link
               href={ROUTES.SIGNUP}
-              className="font-medium text-[#FF6321] hover:text-[#0F172B] transition-colors"
+              className="font-medium text-[#0F172B] hover:text-[#FF6321] transition-colors"
             >
               Sign up
             </Link>
@@ -27,7 +27,7 @@ export default function SignInPage() {
       </div>
 
       {/* Form Section */}
-      <div className="flex flex-col items-center w-[450px] gap-6">
+      <div className="flex flex-col items-center w-full md:w-[450px] gap-6">
         <div className="flex flex-col items-start w-full gap-8">
           {/* Header */}
           <div className="flex flex-col items-start w-full gap-1">
@@ -35,13 +35,13 @@ export default function SignInPage() {
               className="text-[30px] font-semibold leading-9 text-[#0F172B] w-full"
               style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
             >
-              Welcome back
+              Welcome to Bellwether
             </h1>
             <p
               className="text-base font-normal leading-6 text-[#62748E]"
               style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
             >
-              Enter your details to sign in to your account
+              Welcome back! Enter your details to continue.
             </p>
           </div>
 
@@ -53,7 +53,7 @@ export default function SignInPage() {
         <div className="flex flex-row items-center w-full h-5 gap-3">
           <div className="flex-1 h-px bg-[#E2E8F0]" />
           <span
-            className="text-sm font-normal text-[#62748E]"
+            className="text-sm font-normal text-[#62748E] whitespace-nowrap"
             style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
           >
             Or sign in with
@@ -62,43 +62,68 @@ export default function SignInPage() {
         </div>
 
         {/* Social Auth Buttons */}
-        <div className="flex flex-row items-start gap-[21.5px]">
+        <div className="flex flex-row items-start justify-start md:justify-center gap-[26px] md:gap-[21.5px] w-full overflow-x-auto">
           {/* SSO */}
-          <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
-            <Image src="/icons/Frame.svg" alt="SSO" width={24} height={24} />
-          </button>
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
+            <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
+              <Image src="/icons/Frame.svg" alt="SSO" width={24} height={24} />
+            </button>
+            <span className="text-sm font-medium text-[#0F172B] text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              SSO
+            </span>
+          </div>
 
           {/* Facebook */}
-          <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
-            <Image src="/icons/Facebook Icon.svg" alt="Facebook" width={24} height={24} />
-          </button>
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
+            <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
+              <Image src="/icons/Facebook Icon.svg" alt="Facebook" width={24} height={24} />
+            </button>
+            <span className="text-sm font-medium text-[#0F172B] text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              Facebook
+            </span>
+          </div>
 
           {/* Google */}
-          <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
-            <Image src="/icons/Google Icon.svg" alt="Google" width={24} height={24} />
-          </button>
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
+            <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
+              <Image src="/icons/Google Icon.svg" alt="Google" width={24} height={24} />
+            </button>
+            <span className="text-sm font-medium text-[#0F172B] text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              Google
+            </span>
+          </div>
 
           {/* Apple */}
-          <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
-            <Image src="/icons/Apple Icon.svg" alt="Apple" width={24} height={24} />
-          </button>
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
+            <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
+              <Image src="/icons/Apple Icon.svg" alt="Apple" width={24} height={24} />
+            </button>
+            <span className="text-sm font-medium text-[#0F172B] text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              Apple
+            </span>
+          </div>
 
           {/* Microsoft */}
-          <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
-            <Image src="/icons/Microsoft Icon.svg" alt="Microsoft" width={24} height={24} />
-          </button>
+          <div className="flex flex-col items-center gap-[6px] flex-shrink-0">
+            <button disabled className="w-[47px] h-[47px] bg-[#F1F5F9] rounded-lg hover:bg-[#E2E8F0] transition-colors flex items-center justify-center">
+              <Image src="/icons/Microsoft Icon.svg" alt="Microsoft" width={24} height={24} />
+            </button>
+            <span className="text-sm font-medium text-[#0F172B] text-center" style={{ fontFamily: 'Manrope, sans-serif' }}>
+              Microsoft
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <div className="flex flex-row justify-between items-center w-[583px] h-5">
+      <div className="flex flex-col md:flex-row justify-center md:justify-between items-center w-full md:w-[583px] gap-5 md:h-5">
         <p
-          className="text-sm font-normal text-[#90A1B9]"
+          className="text-sm font-normal text-[#90A1B9] order-1 md:order-none"
           style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
         >
           © 2025 Kasana Inc. All rights reserved.
         </p>
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-2 order-2 md:order-none">
           <Link
             href="/privacy"
             className="text-sm font-normal text-[#90A1B9] hover:text-[#62748E] transition-colors"

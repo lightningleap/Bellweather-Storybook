@@ -3,10 +3,14 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@/hooks/use-auth'
 
+const OTP_LENGTH = 5
+
 export function OTPVerification() {
-  const [otp, setOtp] = useState(['', '', '', '', '', ''])
+  const [otp, setOtp] = useState<string[]>(Array(OTP_LENGTH).fill(''))
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [countdown, setCountdown] = useState(59)
+  const [canResend, setCanResend] = useState(false)
   const { verifyOTP } = useAuth()
   const inputRefs = useRef<(HTMLInputElement | null)[]>([])
 
@@ -15,15 +19,20 @@ export function OTPVerification() {
     ? sessionStorage.getItem('pending_auth_email') || ''
     : ''
 
-  // Get test OTP from sessionStorage (for development)
-  const testOTP = typeof window !== 'undefined'
-    ? sessionStorage.getItem('dev_test_otp') || ''
-    : ''
-
   useEffect(() => {
     // Focus first input on mount
     inputRefs.current[0]?.focus()
   }, [])
+
+  // Countdown timer
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000)
+      return () => clearTimeout(timer)
+    } else {
+      setCanResend(true)
+    }
+  }, [countdown])
 
   const handleChange = (index: number, value: string) => {
     // Only allow numbers
@@ -34,7 +43,7 @@ export function OTPVerification() {
     setOtp(newOtp)
 
     // Move to next input if value is entered
-    if (value && index < 5) {
+    if (value && index < OTP_LENGTH - 1) {
       inputRefs.current[index + 1]?.focus()
     }
   }
@@ -48,24 +57,32 @@ export function OTPVerification() {
 
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault()
-    const pastedData = e.clipboardData.getData('text').slice(0, 6)
+    const pastedData = e.clipboardData.getData('text').slice(0, OTP_LENGTH)
     if (!/^\d+$/.test(pastedData)) return
 
     const newOtp = [...otp]
     pastedData.split('').forEach((char, index) => {
-      if (index < 6) newOtp[index] = char
+      if (index < OTP_LENGTH) newOtp[index] = char
     })
     setOtp(newOtp)
 
     // Focus last filled input or last input
-    const lastIndex = Math.min(pastedData.length, 5)
+    const lastIndex = Math.min(pastedData.length, OTP_LENGTH - 1)
     inputRefs.current[lastIndex]?.focus()
+  }
+
+  const handleResend = () => {
+    if (!canResend) return
+    // Reset timer
+    setCountdown(59)
+    setCanResend(false)
+    // TODO: Call resend OTP API
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const otpValue = otp.join('')
-    if (otpValue.length !== 6) return
+    if (otpValue.length !== OTP_LENGTH) return
 
     setIsLoading(true)
     setError(null)
@@ -75,26 +92,21 @@ export function OTPVerification() {
       // Navigation handled by auth context
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Invalid OTP')
-      setOtp(['', '', '', '', '', ''])
+      setOtp(Array(OTP_LENGTH).fill(''))
       inputRefs.current[0]?.focus()
     } finally {
       setIsLoading(false)
     }
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-start w-full gap-6">
-      {testOTP && (
-        <div className="w-full p-4 bg-[#EFF6FF] border border-[#BFDBFE] rounded-lg">
-          <div className="text-sm font-semibold text-[#1E40AF] mb-1">
-            Development Mode
-          </div>
-          <div className="text-sm text-[#1E40AF]">
-            Use this test OTP: <span className="font-mono font-bold text-base">{testOTP}</span>
-          </div>
-        </div>
-      )}
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+  }
 
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col items-center w-full gap-8">
       {error && (
         <div className="w-full p-3 text-sm text-[#DC2626] bg-[#FEE2E2] rounded-lg">
           {error}
@@ -102,52 +114,66 @@ export function OTPVerification() {
       )}
 
       {/* OTP Inputs */}
-      <div className="flex flex-col items-start w-full gap-3">
-        <label className="text-sm font-medium leading-5 text-[#0F172B]">
-          One-Time Password
-        </label>
-        <div className="flex flex-row items-start gap-3 w-full">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              ref={(el) => {
-                inputRefs.current[index] = el
-              }}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(index, e)}
-              onPaste={index === 0 ? handlePaste : undefined}
-              disabled={isLoading}
-              className="w-[60px] h-[60px] text-center text-2xl font-semibold bg-white border border-[#CAD5E2] rounded-lg text-[#0F172B] focus:outline-none focus:ring-2 focus:ring-[#FF6321] focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed"
-            />
-          ))}
-        </div>
-        <p className="text-sm font-normal text-[#62748E]">
-          Please enter the 6-digit code sent to {email}
-        </p>
+      <div className="flex flex-row items-center justify-center gap-3">
+        {otp.map((digit, index) => (
+          <input
+            key={index}
+            ref={(el) => {
+              inputRefs.current[index] = el
+            }}
+            type="text"
+            inputMode="numeric"
+            maxLength={1}
+            value={digit}
+            onChange={(e) => handleChange(index, e.target.value)}
+            onKeyDown={(e) => handleKeyDown(index, e)}
+            onPaste={index === 0 ? handlePaste : undefined}
+            disabled={isLoading}
+            className="w-[56px] h-[48px] text-center text-[20px] font-medium bg-white border border-[#E2E2EA] rounded-lg text-[#222325] placeholder:text-[#909091] focus:outline-none focus:border-[#1D71EC] focus:ring-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ fontFamily: 'Manrope, sans-serif' }}
+            placeholder="-"
+          />
+        ))}
       </div>
 
-      {/* Verify Button */}
-      <button
-        type="submit"
-        disabled={isLoading || otp.join('').length !== 6}
-        className="w-full h-11 px-4 py-2.5 bg-[#FF6321] rounded-lg text-base font-semibold leading-6 text-white shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05),inset_0px_-2px_0px_0px_rgba(16,24,40,0.05),inset_0px_0px_0px_1px_rgba(16,24,40,0.18)] hover:bg-[#E55818] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        style={{ textShadow: '0px 1px 2px rgba(16, 24, 40, 0.05)' }}
-      >
-        {isLoading ? 'Verifying...' : 'Verify OTP'}
-      </button>
-
-      {/* Resend Link */}
-      <div className="w-full text-center">
+      {/* Button and Resend Timer */}
+      <div className="flex flex-row items-center justify-center gap-4 w-full">
         <button
-          type="button"
-          className="text-sm font-normal text-[#62748E] hover:text-[#0F172B] transition-colors"
+          type="submit"
+          disabled={isLoading || otp.join('').length !== OTP_LENGTH}
+          className="w-[170px] px-5 py-3 bg-[#FF6321] rounded-md shadow-[0px_0px_0px_1px_#CF4E17,0px_1px_3px_0px_rgba(0,0,0,0.1)] hover:bg-[#E55818] transition-colors disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
         >
-          Didn&apos;t receive the code? <span className="text-[#FF6321] font-medium">Resend</span>
+          <span
+            className="text-sm font-semibold leading-5 text-white"
+            style={{
+              fontFamily: 'var(--font-dm-sans), sans-serif',
+              textShadow: '0px 1px 3px #DF571D'
+            }}
+          >
+            {isLoading ? 'Verifying...' : 'Sign In'}
+          </span>
+          <div className="absolute inset-0 pointer-events-none shadow-[inset_0px_1px_0.75px_0px_rgba(255,255,255,0.12),inset_0px_-1px_0px_0px_#D95017]" />
         </button>
+
+        <p
+          className="text-sm font-normal text-[#0F172B]"
+          style={{ fontFamily: 'var(--font-dm-sans), sans-serif' }}
+        >
+          {canResend ? (
+            <button
+              type="button"
+              onClick={handleResend}
+              className="text-[#FF6321] font-medium hover:underline"
+            >
+              Resend code
+            </button>
+          ) : (
+            <>
+              Resend code in{' '}
+              <span className="text-[#FF6321]">{formatTime(countdown)}</span>
+            </>
+          )}
+        </p>
       </div>
     </form>
   )
