@@ -1,4 +1,8 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: [
@@ -39,7 +43,7 @@ const config: StorybookConfig = {
         ...config.resolve,
         alias: {
           ...config.resolve?.alias,
-          '@': '/Users/manish/Desktop/LLA/bellwether-nextJs/bellwether-nextJs',
+          '@': path.resolve(__dirname, '..'),
         },
       },
     };
