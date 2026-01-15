@@ -1,4 +1,2 @@
-# Ignore Next.js specific files for Storybook deployment
+# Ignore Next.js middleware for Storybook deployment
 middleware.ts
-next.config.*
-app/
