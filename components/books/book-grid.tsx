@@ -11,7 +11,7 @@ interface BookGridProps {
 export function BookGrid({ books, isLoading }: BookGridProps) {
   if (isLoading) {
     return (
-      <div className="flex flex-wrap justify-center gap-6 md:flex-nowrap md:items-start md:justify-between w-full md:gap-[28.71px]">
+      <div className="flex flex-wrap justify-center gap-6 md:flex-nowrap md:items-start md:justify-start w-full md:gap-6">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="flex flex-col gap-4 animate-pulse">
             <div className="w-[150.465px] aspect-[150/227] bg-[#F1F5F9] rounded-lg" />
@@ -32,7 +32,7 @@ export function BookGrid({ books, isLoading }: BookGridProps) {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-6 md:flex-nowrap md:items-start md:justify-between w-full md:gap-[28.71px]">
+    <div className="flex flex-wrap justify-center gap-6 md:flex-nowrap md:items-start md:justify-start w-full md:gap-6">
       {books.map((book) => (
         <BookCard key={book.id} book={book} />
       ))}
